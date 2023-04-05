@@ -11,3 +11,8 @@ Next is to type in
 ```
 bot.startSwiping()
 ```
+
+# Issues
+
+You may have to make a data/abby and a data/notabby directory
+
