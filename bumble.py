@@ -88,17 +88,19 @@ class BumbleBot:
             time.sleep(0.3)
             self.actions.key_up(Keys.DOWN).perform()
 
-    def save_images(self, just_first_pic, directory):
+    def save_images(self, just_first_pic, name, directory):
         last_file_name='hi.png'
+        randomId = getRandomString()
+        index = 0
         for elements in self.flipThroughImages():
             for element in elements:
-                filename = "data/" + directory + "/" + getRandomString() + ".png"
+                filename = "data/bumble/" + directory + "/" + name + randomId + '-' + str(index) + ".png"
+                index += 1
                 element.screenshot(filename)
                 time.sleep(1.0)
                 if filecmp.cmp(last_file_name, filename):
                     return
                 last_file_name = filename
-            print('HERE')
             if just_first_pic:
                 return
 
@@ -121,20 +123,22 @@ class BumbleBot:
         items = self.getElementXPath('//span[@class="encounters-story-profile__name"]', 10)
 
         is_abby = False
+        lastName='noname'
         for item in items:
             name = item.text
+            lastName = name
             print(name)
             print(name[:2].lower())
-            if name[:2].lower() == 'ab':
+            if name[:2].lower() == 'ab' or name.lower() == 'mary':
                 print("FOUND AN ABBY")
                 is_abby = True
 
         if is_abby:
             print('WE FOUND AN ABBY')
-            self.save_images(False, 'abby')
+            self.save_images(False, lastName, 'abby')
             self.swipeRight()
         else:
-            self.save_images(True, 'notabby')
+            self.save_images(True, lastName, 'notabby')
             self.swipeLeft()
 
 
