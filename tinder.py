@@ -95,6 +95,7 @@ class TinderBot:
         for elements in self.flipThroughImages():
             for element in elements:
                 filename = "data/tinder/" + directory + "/" + name + randomId + '-' + str(index) + ".png"
+                index += 1
                 element.screenshot(filename)
             if just_first_pic:
                 return
